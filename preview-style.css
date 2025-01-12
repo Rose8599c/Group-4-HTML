@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.gif-container {
+   margin-top: 15%;
+}
+
+.gif-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 60px;
+}
+.gif-container .card {
+    position: relative;
+    width: 320px;
+    height: 250px;
+    background-color: rgb(226, 219, 204);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.gif-container .card:hover {
+    height: 350px;
+}
+.gif-container .card .gif {
+    position: absolute;
+    inset: 20px 20px 50px 20px;
+    background-color:red;
+    border-radius: 15px;
+    transition: 0.5s;
+    z-index: 100;
+}
+.gif-container .card:hover .gif {
+    inset: -50px 60px 250px 60px;
+    box-shadow: 0 0 8px 5px rgba(8, 18, 43, 0.978);
+}
+
+.gif-container .card .gif img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+.gif-container .card p {
+    padding: 40px;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-50px);
+    transition: 0.5s;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.gif-container .card:hover p {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(40px);
+}
+.gif-container .card h2 {
+    position: absolute;
+    bottom: 8px;
+    color: #333;
+    transition: 0.5s;
+    font-weight: 600;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

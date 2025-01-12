@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="essentail/lightbulb_30dp_F19E39_FILL0_wght400_GRAD0_opsz24.svg" type="image/x-icon">
+    <link rel="stylesheet" href="styling.css">
+    <link rel="stylesheet" href="media.css">
+    <link rel="stylesheet" href="project-style.css">
+    <title>Bright Corners</title>
+</head>
+<body>
+    <section>
+        <nav>
+            <input type="checkbox" id="sidebar-active">
+            <label for="sidebar-active" class="open-sidebar">
+                <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+            </label>
+           <div class="links-container">
+            <label for="sidebar-active" class="close-sidebar">
+                <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000"><path d="m251.33-204.67-46.66-46.66L433.33-480 204.67-708.67l46.66-46.66L480-526.67l228.67-228.66 46.66 46.66L526.67-480l228.66 228.67-46.66 46.66L480-433.33 251.33-204.67Z"/></svg>
+            </label>
+                <a class="home-link">PROJECTS</a>
+                <a href="index.html">Home</a>
+                <a href="preview.html">Preview</a>
+                <a href="projects.html">Projects</a>
+                <a href="credits.html">Credits</a>
+           </div>
+            
+        </nav>
+    </section>
+    <section>
+        <div class="project-statement"> 
+            <p>Hey there, welcome to our Mini Projects!
+                <br>
+                <br>
+                We're so glad you're here! These little projects are packed with fun, creativity, and a touch of magic. Whether you're just exploring or getting your hands dirty with code, we hope you enjoy the journey. Have fun, get inspired, and let's make something awesome together!
+                <br>
+                <br>
+                🎉💻✨ Let's Create! 🚀🎨</p>
+        </div>
+        <div class="container">
+            <div class="display" id="digitalClock">00:00:00</div>
+            
+            <div class="controls">
+                <button onclick="startTimer()">Start Timer</button>
+                <button onclick="stopTimer()">Stop Timer</button>
+                <button onclick="resetTimer()">Reset Timer</button>
+            </div>
+        
+            <div>
+                <label for="timerInput">Set Timer (HH:MM:SS): </label>
+                <input type="text" id="timerInput" placeholder="00:00:00">
+            </div>
+        
+            <div class="display" id="timerDisplay">Timer: 00:00:00</div>
+        
+            <div class="controls">
+                <button onclick="startStopwatch()">Start Stopwatch</button>
+                <button onclick="stopStopwatch()">Stop Stopwatch</button>
+                <button onclick="resetStopwatch()">Reset Stopwatch</button>
+            </div>
+        
+            <div class="display" id="stopwatchDisplay">Stopwatch: 00:00:00</div>
+        </div>
+        
+        <script>
+            // Digital Clock
+            function updateClock() {
+                let now = new Date();
+                let hours = now.getHours().toString().padStart(2, '0');
+                let minutes = now.getMinutes().toString().padStart(2, '0');
+                let seconds = now.getSeconds().toString().padStart(2, '0');
+                document.getElementById("digitalClock").textContent = `${hours}:${minutes}:${seconds}`;
+            }
+        
+            setInterval(updateClock, 1000);  // Update every second
+        
+            // Timer
+            let timerInterval;
+            let timerTime = 0;
+        
+            function startTimer() {
+                const timerInput = document.getElementById("timerInput").value;
+                const [hours, minutes, seconds] = timerInput.split(":").map(Number);
+        
+                // Validate if the input format is correct
+                if (
+                    isNaN(hours) || isNaN(minutes) || isNaN(seconds) ||
+                    hours < 0 || minutes < 0 || seconds < 0 ||
+                    minutes >= 60 || seconds >= 60
+                ) {
+                    alert("Please enter a valid time in HH:MM:SS format.");
+                    return;
+                }
+        
+                timerTime = (hours * 3600) + (minutes * 60) + seconds;
+        
+                timerInterval = setInterval(() => {
+                    if (timerTime <= 0) {
+                        clearInterval(timerInterval);
+                        document.getElementById("timerDisplay").textContent = 'Timer: 00:00:00';
+                        alert("Timer finished!");
+                    } else {
+                        timerTime--;
+                    }
+        
+                    let timerHours = Math.floor(timerTime / 3600).toString().padStart(2, '0');
+                    let timerMinutes = Math.floor((timerTime % 3600) / 60).toString().padStart(2, '0');
+                    let timerSeconds = (timerTime % 60).toString().padStart(2, '0');
+                    document.getElementById("timerDisplay").textContent = `Timer: ${timerHours}:${timerMinutes}:${timerSeconds}`;
+                }, 1000);
+            }
+        
+            function stopTimer() {
+                clearInterval(timerInterval);
+                let timerHours = Math.floor(timerTime / 3600).toString().padStart(2, '0');
+                let timerMinutes = Math.floor((timerTime % 3600) / 60).toString().padStart(2, '0');
+                let timerSeconds = (timerTime % 60).toString().padStart(2, '0');
+                document.getElementById("timerDisplay").textContent = `Timer: ${timerHours}:${timerMinutes}:${timerSeconds}`;
+            }
+        
+            function resetTimer() {
+                clearInterval(timerInterval);
+                timerTime = 0;  // Reset the timer time
+                document.getElementById("timerDisplay").textContent = 'Timer: 00:00:00';
+            }
+        
+            // Stopwatch
+            let stopwatchInterval;
+            let stopwatchTime = 0;
+        
+            function startStopwatch() {
+                stopwatchInterval = setInterval(() => {
+                    stopwatchTime++;
+                    let stopwatchHours = Math.floor(stopwatchTime / 3600).toString().padStart(2, '0');
+                    let stopwatchMinutes = Math.floor((stopwatchTime % 3600) / 60).toString().padStart(2, '0');
+                    let stopwatchSeconds = (stopwatchTime % 60).toString().padStart(2, '0');
+                    document.getElementById("stopwatchDisplay").textContent = `Stopwatch: ${stopwatchHours}:${stopwatchMinutes}:${stopwatchSeconds}`;
+                }, 1000);
+            }
+        
+            function stopStopwatch() {
+                // Stop the stopwatch by clearing the interval
+                clearInterval(stopwatchInterval);
+            }
+        
+            function resetStopwatch() {
+                // Stop the stopwatch and reset time
+                clearInterval(stopwatchInterval);
+                stopwatchTime = 0;
+                document.getElementById("stopwatchDisplay").textContent = 'Stopwatch: 00:00:00';
+            }
+        </script>
+        
+        
+    </section>
+</body>
+</html>
